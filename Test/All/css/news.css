@@ -1,0 +1,131 @@
+/* --- ไฟล์ style.css --- */
+/* (คัดลอก CSS ทั้งหมดมาจากแท็ก <style> เดิม) */
+
+/* ตั้งค่าพื้นฐาน */
+.elec-news-container {
+    font-family: 'Prompt', sans-serif;
+    max-width: auto;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff00; /* ปรับสีพื้นหลังเล็กน้อย */
+    border-radius: 10px;
+}
+
+/* หัวข้อหลัก */
+.elec-header {
+    border-left: 5px solid #ff2600; /* สีน้ำเงินเข้มสื่อถึงเทคโนโลยี/อิเล็กทรอนิกส์ */
+    padding-left: 15px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.elec-header h2 {
+    color: #a31621;
+    margin: 0;
+    font-size: 24px;
+}
+.elec-header a {
+    text-decoration: none;
+    color: #a31621;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Grid Layout */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px; /* เพิ่มช่องว่างเล็กน้อย */
+}
+
+/* ตัวการ์ดข่าว */
+.news-card {
+    background: rgb(255, 255, 255);
+    border-radius: 1px; /* เพิ่มความมน */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.24); /* ปรับเงาให้นุ่มนวล */
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column; /* จัดเรียงแนวตั้ง */
+}
+
+.news-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0, 86, 179, 0.15); /* ให้เงาเป็นสีฟ้าเล็กน้อย */
+}
+
+/* === ส่วนที่เพิ่มเข้ามาสำหรับรูปภาพ === */
+.news-image-container {
+    width: 100%;
+    height: 180px; /* กำหนดความสูงของรูปภาพ */
+    background-color: #e0e0e0; /* สีพื้นหลังเผื่อรูปโหลดไม่ขึ้น */
+}
+
+.news-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ทำให้รูปภาพเต็มกรอบโดยไม่เสียสัดส่วน */
+    display: block;
+}
+/* === จบส่วนที่เพิ่ม === */
+
+
+.news-content {
+    padding: 20px;
+    flex-grow: 1; /* ทำให้เนื้อหายืดเต็มพื้นที่ที่เหลือ */
+    display: flex;
+    flex-direction: column;
+}
+
+/* วันที่ */
+.news-date {
+    font-size: 12px;
+    color: #555;
+    background-color: #eef2f700;
+    padding: 4px 10px;
+    border-radius: 20px; /* ทำให้ป้ายมน */
+    display: inline-block;
+    margin-bottom: 12px;
+}
+
+/* หัวข้อข่าว */
+.news-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    color: #2c3e50;
+    line-height: 1.4;
+    flex-grow: 1; /* ดันให้ปุ่ม "อ่านต่อ" อยู่ด้านล่างสุด */
+}
+
+/* เนื้อหาย่อ */
+.news-excerpt {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* ปุ่มอ่านต่อ */
+.read-more {
+    color: #bb2828;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    margin-top: auto; /* ดันปุ่มลงล่างสุด */
+}
+.read-more:hover {
+    color: #e67e22;
+    text-decoration: underline;
+}
+.read-more::after {
+    content: ' \2192'; /* เพิ่มลูกศร → */
+    margin-left: 5px;
+    transition: margin-left 0.2s;
+}
+.read-more:hover::after {
+    margin-left: 10px;
+}

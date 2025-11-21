@@ -1,0 +1,26 @@
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        /* Custom CSS สำหรับ Drop Zone */
+        #drop-zone {
+            transition: all 0.2s ease-in-out;
+        }
+        #drop-zone.dragover {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
+            color: #1d4ed8;
+        }
+        .doc-icon-placeholder {
+            /* จำลองไอคอนเอกสารให้ดูคล้ายกับในรูป */
+            width: 50px;
+            height: 60px;
+            background-color: #fecaca;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            color: #ef4444;
+            font-size: 24px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
