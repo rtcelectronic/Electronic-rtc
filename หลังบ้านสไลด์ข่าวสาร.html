@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>จัดการข่าวสารสไลด์ (Back Office)</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        body {
+            background-color: #f4f6f9;
+            font-family: 'Sarabun', sans-serif; /* แนะนำให้ใช้ฟอนต์ไทยสวยๆ */
+        }
+        .card {
+            border: none;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            border-radius: 10px;
+        }
+        .preview-box {
+            width: 100%;
+            height: 250px;
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            overflow: hidden;
+            position: relative;
+        }
+        .preview-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+            display: none; /* ซ่อนก่อนถ้ายังไม่เลือกรูป */
+        }
+        .preview-text {
+            color: #aaa;
+        }
+        .table img {
+            width: 100px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="#"><i class="fas fa-cogs"></i> ระบบจัดการเว็บไซต์</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="card">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="mb-0 text-primary"><i class="fas fa-plus-circle"></i> เพิ่มสไลด์ข่าวใหม่</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="addSlideForm">
+                            
+                            <div class="mb-3 text-center">
+                                <label class="form-label fw-bold">รูปภาพหน้าปก (Cover Image)</label>
+                                <div class="preview-box mb-2" onclick="document.getElementById('fileInput').click()" style="cursor: pointer;">
+                                    <span class="preview-text"><i class="fas fa-image fa-2x"></i><br>คลิกเพื่อเลือกรูป</span>
+                                    <img id="imagePreview" src="" alt="Image Preview">
+                                </div>
+                                <input type="file" class="form-control" id="fileInput" accept="image/*" onchange="previewImage(event)">
+                                <div class="form-text">รองรับไฟล์ JPG, PNG ขนาดแนะนำ 1200x600 px</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="newsTitle" class="form-label fw-bold">หัวข้อข่าว (Title)</label>
+                                <input type="text" class="form-control" id="newsTitle" placeholder="เช่น กิจกรรมวันไหว้ครู..." required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="newsDesc" class="form-label fw-bold">รายละเอียดสั้นๆ (Description)</label>
+                                <textarea class="form-control" id="newsDesc" rows="3" placeholder="รายละเอียดที่จะโชว์บนสไลด์..."></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="newsLink" class="form-label fw-bold">ลิงก์ไปที่ (URL)</label>
+                                <input type="url" class="form-control" id="newsLink" placeholder="https://...">
+                            </div>
+
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> บันทึกข้อมูล</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0 text-dark"><i class="fas fa-list"></i> รายการสไลด์ปัจจุบัน</h5>
+                        <span class="badge bg-secondary">ทั้งหมด 3 รายการ</span>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th style="width: 5%;">#</th>
+                                        <th style="width: 20%;">รูปภาพ</th>
+                                        <th>หัวข้อข่าว</th>
+                                        <th style="width: 15%;">สถานะ</th>
+                                        <th style="width: 15%;">จัดการ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td><img src="https://via.placeholder.com/300x150" alt="slide1"></td>
+                                        <td>
+                                            <strong>เปิดรับสมัครนักศึกษาใหม่ 2568</strong><br>
+                                            <small class="text-muted">รายละเอียดการรับสมัคร...</small>
+                                        </td>
+                                        <td><span class="badge bg-success">แสดงผล</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-warning text-white"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td><img src="https://via.placeholder.com/300x150/333" alt="slide2"></td>
+                                        <td>
+                                            <strong>กิจกรรมจิตอาสาพัฒนาชุมชน</strong><br>
+                                            <small class="text-muted">ร่วมแรงร่วมใจพัฒนา...</small>
+                                        </td>
+                                        <td><span class="badge bg-success">แสดงผล</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-warning text-white"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ฟังก์ชันสำหรับแสดงตัวอย่างรูปภาพเมื่อเลือกไฟล์
+        function previewImage(event) {
+            var reader = new FileReader();
+            var imageField = document.getElementById("imagePreview");
+            var textPreview = document.querySelector(".preview-text");
+
+            reader.onload = function(){
+                if(reader.readyState == 2){
+                    imageField.src = reader.result;
+                    imageField.style.display = "block"; // โชว์รูป
+                    textPreview.style.display = "none"; // ซ่อนข้อความ
+                }
+            }
+            
+            if(event.target.files[0]) {
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        }
+
+        // จำลองการกดปุ่มบันทึก (เพื่อให้เห็น interaction)
+        document.getElementById('addSlideForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // ป้องกันการรีเฟรชหน้าจริง
+            
+            // รับค่าจากฟอร์ม
+            const title = document.getElementById('newsTitle').value;
+            const file = document.getElementById('fileInput').files[0];
+
+            if(!file) {
+                alert('กรุณาเลือกรูปภาพก่อนบันทึก');
+                return;
+            }
+
+            alert('กำลังบันทึกข้อมูล: ' + title + '\n(ส่วนนี้ต้องเขียนเชื่อมต่อกับ Backend/Database ต่อไป)');
+            
+            // รีเซ็ตฟอร์ม
+            this.reset();
+            document.getElementById("imagePreview").style.display = "none";
+            document.querySelector(".preview-text").style.display = "block";
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
