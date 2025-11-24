@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function startAutoSlide() {
         // ล้างตัวจับเวลาเก่าออกก่อน (กันซ้อน)
         clearInterval(autoSlideInterval);
-        // ตั้งเวลาใหม่ 5000ms = 5 วินาที
+        // ตั้งเวลาใหม่ 3000ms = 3 วินาที
         autoSlideInterval = setInterval(function() {
             window.nextSlide();
         }, 3000);
